@@ -1,14 +1,9 @@
-Tab switch | pure JS | full 3% of total code here for now
+Landing Page | Tour operator
 
-This example use's (3) main variable's :
+Log :
 
+20oct18
 
-Menu Container - .info-header
-
-Menu Buttons - .info-header-tab
-
-Content Tabs - .info-tabcontent
-
-
+added tabs and timer
 
 Enjoy Life and Code )
