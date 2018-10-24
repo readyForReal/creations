@@ -10,4 +10,8 @@ Log :
 
 >added modal window
 
+24oct18
+
+>added arrow functions and const, looking pretty ES6 :D
+
 Enjoy Life and Code )

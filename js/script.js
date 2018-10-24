@@ -1,14 +1,14 @@
-window.addEventListener('DOMContentLoaded', function() {
+'use strict';
 
-    'use strict';
+window.addEventListener('DOMContentLoaded', function() {
 
     //                         Tabs
 
-    let tab = document.querySelectorAll('.info-header-tab'),
+    const tab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
 
-    function hideTabContent(a) {
+    const hideTabContent = (a) => {
         for (let i = a; i < tabContent.length; i++) {
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     hideTabContent(1);
 
-    function showTabContent(b) {
+    const showTabContent = (b) => {
         if (tabContent[b].classList.contains('hide')) {
             tabContent[b].classList.remove('hide');
             tabContent[b].classList.add('show');
@@ -39,13 +39,13 @@ window.addEventListener('DOMContentLoaded', function() {
 
     //                         Timer
     
-    let deadline = '2018-10-30';
+    const deadline = '2018-10-30';
 
-    function getTimeRemaining(endtime) {
+    const getTimeRemaining = (endtime) => {
         let t = Date.parse(endtime) - Date.parse(new Date()),
-        seconds = Math.floor((t/1000) % 60),
-        minutes = Math.floor((t/1000/60) % 60),
-        hours = Math.floor((t/(1000*60*60)) % 60);
+            seconds = Math.floor((t/1000) % 60),
+            minutes = Math.floor((t/1000/60) % 60),
+            hours = Math.floor((t/(1000*60*60)) % 60);
 
         return {
             'total' : t,
@@ -55,16 +55,16 @@ window.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    function setClock(id, endtime) {
-
+    const setClock = (id, endtime) => {
         let timer = document.getElementById(id),
-        hours = timer.querySelector('.hours'),
-        minutes = timer.querySelector('.minutes'),
-        seconds = timer.querySelector('.seconds'),
-        timeInterval = setInterval(updateClock, 1000);
+            hours = timer.querySelector('.hours'),
+            minutes = timer.querySelector('.minutes'),
+            seconds = timer.querySelector('.seconds'),
+            timeInterval = setInterval(updateClock, 1000);
 
-        function updateClock() {
+        function updateClock () {
             let t = getTimeRemaining(endtime);
+
             if ( t.hours < 10) { t.hours = '0' + t.hours; }
             hours.textContent = t.hours;
             if ( t.minutes < 10) { t.minutes = '0' + t.minutes; }
@@ -85,7 +85,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     //                         Modal
 
-    let more = document.querySelector('.more'),
+    const more = document.querySelector('.more'),
         overlay = document.querySelector('.overlay'),
         close = document.querySelector('.popup-close'),
         about = document.querySelector('#about');
