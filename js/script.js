@@ -106,4 +106,172 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    //                         Form
+
+    let message = {
+        loading: 'Loading...',
+        success: 'Thank you, we will be in touch soon!',
+        failure: 'Something went wrong...'
+    };
+
+    let form = document.querySelector('.main-form'),
+        input = form.getElementsByTagName('input'),
+        statusMessage = document.createElement('div');
+
+    statusMessage.classList.add('status');
+
+    form.addEventListener('submit', function(event) {
+        if (/^((\+|[0-9])+([0-9]){10})$/gm.test(input[0].value)) {
+            event.preventDefault();
+            form.appendChild(statusMessage);
+
+            let request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+            request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+            let formData = new FormData(form);
+
+            let obj = {};
+            formData.forEach(function(value, key) {
+                obj[key] = value;
+            });
+            let json = JSON.stringify(obj);
+
+            request.send(json);
+
+            request.addEventListener('readystatechange', function() {
+                if (request.readyState < 4) {
+                    statusMessage.innerHTML = message.loading;
+                } else if (request.readyState === 4 && request.status == 200) {
+                    statusMessage.innerHTML = message.success;
+                } else {
+                    statusMessage.innerHTML = message.failure;
+                }
+            });
+
+            for (let i = 0; i < input.length; i++) {
+                input[i].value = '';
+            }
+
+            document.querySelector('.popup-form__input').placeholder="+79789733345";
+
+        } else {
+            event.preventDefault();
+            document.querySelector('.popup-form__input').placeholder='Please try again !';
+            alert('only numbers and "+" sign allowed, no spaces, 11 symbols minimum !');
+            for (let i = 0; i < input.length; i++) {
+                input[i].value = '';
+            }
+        }
+    });
+
+    //                         Contact Form
+
+    let formTwo = document.querySelector('#form'),
+        inputTwo = formTwo.getElementsByTagName('input');
+        console.log(inputTwo);
+
+    formTwo.addEventListener('submit', function(event) {
+        if (/^((\+|[0-9])+([0-9]){10})$/gm.test(inputTwo[1].value)) {
+            event.preventDefault();
+            formTwo.appendChild(statusMessage);
+
+            let req = new XMLHttpRequest();
+            req.open('POST', 'server.php');
+            req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+            let formDataTwo = new FormData(formTwo);
+
+            let objTwo = {};
+            formDataTwo.forEach(function(value, key) {
+                objTwo[key] = value;
+            });
+            console.log(objTwo);
+            let jsonTwo = JSON.stringify(objTwo);
+
+            req.send(jsonTwo);
+
+            req.addEventListener('readystatechange', function() {
+                if (req.readyState < 4) {
+                    statusMessage.innerHTML = message.loading;
+                } else if (req.readyState === 4 && req.status == 200) {
+                    statusMessage.innerHTML = message.success;
+                } else {
+                    statusMessage.innerHTML = message.failure;
+                }
+            });
+
+            for (let i = 0; i < inputTwo.length; i++) {
+                inputTwo[i].value = '';
+            }
+
+            inputTwo[1].placeholder="Ваш телефон";
+        } else {
+            event.preventDefault();
+            inputTwo[1].value = '';
+            inputTwo[1].placeholder = 'Please try again !';
+            alert('only numbers and "+" sign allowed, no spaces, 11 symbols minimum !');
+            
+        }
+
+    });
 });
+
+    // let body = document.querySelector('body');
+
+    // body.addEventListener('submit', function(event) {
+    //     event.preventDefault();
+    //     let target = event.target;
+
+    //     if (target && target.classList.contains('main-form')) {
+    //         let form = document.querySelector('.main-form'),
+    //             input = form.getElementsByTagName('input');
+    //     } else if (target && target.classList.contains('bottom-form')) {
+    //         let form = document.querySelector('.bottom-form'),
+    //             input = form.getElementsByTagName('input');
+    //     }
+    //     let statusMessage = document.createElement('div');
+    //     statusMessage.classList.add('status');
+    //     form.appendChild(statusMessage);
+
+    //     console.log(input);
+
+    //     if (/^((\+|[0-9])+([0-9]){10})$/gm.test(input.value)) {
+    //         event.preventDefault();
+    //         form.appendChild(statusMessage);
+        
+    //         let request = new XMLHttpRequest();
+    //         request.open('POST', 'server.php');
+    //         request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        
+    //         let formData = new FormData(form);
+        
+    //         let obj = {};
+    //         formData.forEach(function(value, key) {
+    //             obj[key] = value;
+    //         });
+    //         let json = JSON.stringify(obj);
+        
+    //         request.send(json);
+        
+    //         request.addEventListener('readystatechange', function() {
+    //             if (request.readyState < 4) {
+    //                 statusMessage.innerHTML = message.loading;
+    //             } else if (request.readyState === 4 && request.status == 200) {
+    //                 statusMessage.innerHTML = message.success;
+    //             } else {
+    //                 statusMessage.innerHTML = message.failure;
+    //             }
+    //         });
+        
+    //         for (let i = 0; i < input.length; i++) {
+    //             input[i].value = '';
+    //         }
+    //         } else {
+    //             event.preventDefault();
+    //             alert('only numbers and "+" sign allowed, no spaces, 11 symbols minimum !');
+    //             for (let i = 0; i < input.length; i++) {
+    //                 input[i].value = '';
+    //             }
+    //         }
+    // });
