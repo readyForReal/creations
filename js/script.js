@@ -111,11 +111,8 @@ window.addEventListener('DOMContentLoaded', function() {
     let phone = document.querySelectorAll(" input[type=tel]");
 
     for (let i = 0; i < phone.length; i++) {
-        phone[i].addEventListener('blur', function() {
-            if (!(/^((\+|[0-9])+([0-9]){10})$/gm.test(phone[i].value))) {
-                alert('Invalid Phone Number ! Only numbers and "+" are allowed, no spaces, minimum 11 symbols');
-                phone[i].value = '';
-            }
+        phone[i].addEventListener('input', function() {
+            phone[i].value = phone[i].value.match(/[\+0-9]+/ig);
         });
     }
 
