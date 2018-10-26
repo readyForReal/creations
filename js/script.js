@@ -106,11 +106,23 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    //                         Phone input validate
+
+    let phone = document.querySelectorAll(" input[type=tel]");
+
+    for (let i = 0; i < phone.length; i++) {
+        phone[i].addEventListener('blur', function() {
+            if (!(/^((\+|[0-9])+([0-9]){10})$/gm.test(phone[i].value))) {
+                alert('Invalid Phone Number ! Only numbers and "+" are allowed, no spaces, minimum 11 symbols');
+                phone[i].value = '';
+            }
+        });
+    }
+
     //                         Form
 
-    function sendData(event, form, input) {
+    function sendData(form, input) {
         event.preventDefault();
-        console.log('sendData called');
         form.appendChild(statusMessage);
     
         let request = new XMLHttpRequest();
@@ -156,7 +168,13 @@ window.addEventListener('DOMContentLoaded', function() {
 
     statusMessage.classList.add('status');
 
-    form.addEventListener('submit', sendData(event, form, input));
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        sendData(form, input);
+    });
 
-    formTwo.addEventListener('submit', sendData(event, formTwo, inputTwo));
+    formTwo.addEventListener('submit', (event) => {
+        event.preventDefault();
+        sendData(formTwo, inputTwo);
+    });
 });
