@@ -106,9 +106,9 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    //                         Phone input validate
+    //                         Phone input restrict to numbers and + sign
 
-    let phone = document.querySelectorAll(" input[type=tel]");
+    let phone = document.querySelectorAll("input[type=tel]");
 
     for (let i = 0; i < phone.length; i++) {
         phone[i].addEventListener('input', function() {
@@ -118,60 +118,60 @@ window.addEventListener('DOMContentLoaded', function() {
 
     //                         Form
 
-    function sendData(form, input) {
-        event.preventDefault();
-        form.appendChild(statusMessage);
-    
-        let request = new XMLHttpRequest();
-        request.open('POST', 'server.php');
-        request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-    
-        let formData = new FormData(form);
-    
-        let obj = {};
-        formData.forEach(function(value, key) {
-            obj[key] = value;
-        });
-        let json = JSON.stringify(obj);
-    
-        request.send(json);
-    
-        request.addEventListener('readystatechange', function() {
-            if (request.readyState < 4) {
-                statusMessage.innerHTML = message.loading;
-            } else if (request.readyState === 4 && request.status == 200) {
-                statusMessage.innerHTML = message.success;
-            } else {
-                statusMessage.innerHTML = message.failure;
-            }
-        });
-    
-        for (let i = 0; i < input.length; i++) {
-            input[i].value = '';
-        }
-    }
-
     let message = {
         loading: 'Loading...',
         success: 'Thank you, we will be in touch soon!',
         failure: 'Something went wrong...'
-    };
+    }
 
     let form = document.querySelector('.main-form'),
-        input = form.getElementsByTagName('input'),
         formTwo = document.querySelector('#form'),
-        inputTwo = formTwo.getElementsByTagName('input'),
         statusMessage = document.createElement('div');
 
     statusMessage.classList.add('status');
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        sendData(form, input);
-    });
+    function sendForm(form) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            let input = form.querySelectorAll('input');
+            form.appendChild(statusMessage);
+            let formData = new FormData(form);
 
-    formTwo.addEventListener('submit', (event) => {
-        event.preventDefault();
-        sendData(formTwo, inputTwo);
-    });
+        function postData() {
+            return new Promise(function(resolve, reject) {
+                let request = new XMLHttpRequest();
+                request.open('POST', 'server.php');
+                request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+                request.onreadystatechange = function(){
+                    if (request.readyState < 4) {
+                        resolve();
+                    } else if (request.readyState === 4 && request.status == 200) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                }
+                let obj = {};
+                formData.forEach(function(value, key) {
+                    obj[key] = value;
+                });
+                let json = JSON.stringify(obj);
+                request.send(json);
+            });
+        }
+
+        postData(formData)
+            .then(() => statusMessage.innerHTML = message.loading)
+            .then(() => statusMessage.innerHTML = message.success)
+            .catch(() => statusMessage.innerHTML = message.failure)
+            .then(() => {
+                for (let i = 0; i < input.length; i++) {
+                    input[i].value = '';
+                }
+            });
+        });
+    }
+    sendForm(form);
+    sendForm(formTwo);
 });
