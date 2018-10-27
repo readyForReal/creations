@@ -131,6 +131,8 @@ window.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         let input = this.getElementsByTagName('input'),
             statusMessage = document.createElement('div');
+
+        this.appendChild(statusMessage);
     
         let formData = new FormData(this);
         
@@ -167,10 +169,12 @@ window.addEventListener('DOMContentLoaded', function() {
         postData(formData)
             .then(() => statusMessage.innerHTML = message.loading)	
             .then(() => {
-                statusMessage.innerHTML = message.success;
+                setTimeout(() => {
+                    statusMessage.innerHTML = message.success;
+                }, 2000);
                 setTimeout(() => {
                     statusMessage.innerHTML = "";
-                }, 2000);
+                }, 4000);
             })
             .catch(() => statusMessage.innerHTML = message.failture)
             .then(clearInput)     	       
