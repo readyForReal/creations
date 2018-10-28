@@ -2,16 +2,20 @@ Landing Page | Tour operator
 
 Log :
 
-20oct18
+28oct18
 
->added tabs and timer
+>added slider and calc 
+
+24oct18
+
+>added arrow functions and const, looking pretty ES6 :D
 
 22oct18
 
 >added modal window
 
-24oct18
+20oct18
 
->added arrow functions and const, looking pretty ES6 :D
+>added tabs and timer
 
 Enjoy Life and Code )
