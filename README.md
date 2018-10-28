@@ -4,6 +4,10 @@ Log :
 
 28oct18
 
+>webpack hell xD
+
+28oct18
+
 >added slider and calc 
 
 24oct18
