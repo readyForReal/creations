@@ -1,4 +1,4 @@
-function timer() {
+const timer = () => {
 
     const deadline = '2018-10-30';
 
@@ -14,16 +14,15 @@ function timer() {
             'minutes' : minutes,
             'seconds' : seconds
         };
-    }
+    };
 
     const setClock = (id, endtime) => {
         let timer = document.getElementById(id),
             hours = timer.querySelector('.hours'),
             minutes = timer.querySelector('.minutes'),
-            seconds = timer.querySelector('.seconds'),
-            timeInterval = setInterval(updateClock, 1000);
+            seconds = timer.querySelector('.seconds');
 
-        function updateClock () {
+        const updateClock = () => {
             let t = getTimeRemaining(endtime);
 
             if ( t.hours < 10) { t.hours = '0' + t.hours; }
@@ -33,17 +32,20 @@ function timer() {
             if ( t.seconds < 10) { t.seconds = '0' + t.seconds; }
             seconds.textContent = t.seconds;
 
+						let timeInterval = setInterval(updateClock, 1000);
+
             if ( t.total <= 0) {
                 clearInterval(timeInterval);
                 hours.textContent = '00';
                 minutes.textContent = '00';
                 seconds.textContent = '00';
             }
-        }
-    }
+
+        };
+    };
 
     setClock('timer', deadline);
 
-}
+};
 
 module.exports = timer;
