@@ -1,15 +1,15 @@
-function form() {
+const form = () => {
 
     let message = {
         loading: 'Loading...',
         success: 'Thank you, we will be in touch soon!',
         failure: 'Something went wrong...'
-    }
+    };
     
     let form = document.querySelector('.main-form'),
         formTwo = document.querySelector('#form');
     
-    function sendForm(event) {
+    const sendForm = (event) => {
         event.preventDefault();
         let input = this.getElementsByTagName('input'),
             statusMessage = document.createElement('div');
@@ -18,15 +18,15 @@ function form() {
     
         let formData = new FormData(this);
         
-        function postData(data) {
-            return new Promise(function(resolve, reject) {
+        const postData = (data) => {
+            return new Promise( (resolve, reject) => {
                 let request = new XMLHttpRequest();
     
                 request.open("POST", "server.php");
     
                 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     
-                request.onreadystatechange = function() {
+                request.onreadystatechange = () => {
                     if (request.readyState < 4) {
                         resolve();
                     } else if (request.readyState == 4) {
@@ -37,16 +37,16 @@ function form() {
                             reject();
                         }
                     }
-                }
+                };
                 request.send(data);
             });
-        }
+        };
         
-        function clearInput() {
+        const clearInput = () => {
             for (let i = 0; i < input.length; i++) {
                 input[i].value = '';
             }
-        }
+        };
         
         postData(formData)
             .then(() => statusMessage.innerHTML = message.loading)	
@@ -59,12 +59,12 @@ function form() {
                 }, 4000);
             })
             .catch(() => statusMessage.innerHTML = message.failture)
-            .then(clearInput)     	       
-        }
+            .then(clearInput);     	       
+        };
         
         form.addEventListener('submit', sendForm);
         formTwo.addEventListener('submit', sendForm); 
 
-}
+};
 
-export default form;
+module.exports = form;
