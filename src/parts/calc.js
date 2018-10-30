@@ -12,6 +12,7 @@ const calc = () => {
 
             if (inputs[i].value.length == 1 && inputs[i].value == 0) {
                 inputs[i].value = '';
+                totalValue.innerHTML = 0;
             } else if (!((keyCode >= 48 && keyCode <= 57) || (keyCode >=96 && keyCode <= 105) || keyCode == 8)) {
                 e.preventDefault();
             }
