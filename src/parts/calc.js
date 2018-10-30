@@ -6,17 +6,17 @@ const calc = () => {
     
     for (let i = 0; i < inputs.length; i++) {
 
-        inputs[i].addEventListener('keydown', (e) => {
-
-            console.log(inputs);
+        inputs[i].addEventListener('change', (e) => {
 
             let keyCode = e.keyCode || e.which;
-            if(!((keyCode >= 48 && keyCode <= 57) || (keyCode >=96 && keyCode <= 105) || keyCode == 8)) {
+
+            if (inputs[i].value.length == 1 && inputs[i].value == 0) {
+                inputs[i].value = '';
+            } else if (!((keyCode >= 48 && keyCode <= 57) || (keyCode >=96 && keyCode <= 105) || keyCode == 8)) {
                 e.preventDefault();
             }
-        //   if (inputs[i].value == 0) {
-        //     inputs[i].value = '';
-        //   }
+
+            console.log()
 
         });
 
